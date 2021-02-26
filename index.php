@@ -10,9 +10,30 @@
 
 // TODO Votre code ici.
 try {
-    ...
+    $dbname = "table_test_php";
+    $server = "localhost";
+    $password = "";
+    $user = "root";
+
+    $con = new PDO("mysql:host = $server;dbname=$dbname;charset=UTF8", $user, $password);
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $nom = 'Bulle';
+    $id = 2;
+
+    $stm = $con->prepare("UPDATE user SET nom = :nom WHERE id = :id");
+
+    $stm->bindParam(':nom', $nom);
+    $stm->bindParam(':id', $id);
+
+    //envoie de la requête
+    $stm->execute();
+    echo"utilisateur est bien modifié";
+
 }
-catch...
+catch(PDOException $exception) {
+    echo " Une erreur est survenue ! " .$exception->getMessage();
+}
 
 
 
